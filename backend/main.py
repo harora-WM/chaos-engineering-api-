@@ -237,6 +237,7 @@ async def generate_chaos_plan_stream(request: GeneratePlanRequest):
         headers={
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",  # Disable nginx buffering
         }
     )
 
