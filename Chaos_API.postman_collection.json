@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "Chaos Engineering API",
+    "description": "API endpoints for chaos engineering plan generation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Root Endpoint",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Test OpenSearch Connection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endpoint\": \"{{opensearchEndpoint}}\",\n  \"username\": \"{{opensearchUsername}}\",\n  \"password\": \"{{opensearchPassword}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opensearch/test-connection",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "opensearch", "test-connection"]
+        }
+      }
+    },
+    {
+      "name": "Get OpenSearch Indices",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endpoint\": \"{{opensearchEndpoint}}\",\n  \"username\": \"{{opensearchUsername}}\",\n  \"password\": \"{{opensearchPassword}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opensearch/indices",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "opensearch", "indices"]
+        }
+      }
+    },
+    {
+      "name": "Fetch Index Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endpoint\": \"{{opensearchEndpoint}}\",\n  \"username\": \"{{opensearchUsername}}\",\n  \"password\": \"{{opensearchPassword}}\",\n  \"index_name\": \"your-index-name\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opensearch/fetch-data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "opensearch", "fetch-data"]
+        }
+      }
+    },
+    {
+      "name": "Test AWS Bedrock Connection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"global.anthropic.claude-sonnet-4-5-20250929-v1:0\",\n  \"region\": \"ap-south-1\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/bedrock/test-connection",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "bedrock", "test-connection"]
+        }
+      }
+    },
+    {
+      "name": "Generate Chaos Plan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"index_name\": \"your-index-name\",\n  \"opensearch_config\": {\n    \"endpoint\": \"{{opensearchEndpoint}}\",\n    \"username\": \"{{opensearchUsername}}\",\n    \"password\": \"{{opensearchPassword}}\"\n  },\n  \"aws_config\": {\n    \"model\": \"global.anthropic.claude-sonnet-4-5-20250929-v1:0\",\n    \"region\": \"ap-south-1\"\n  },\n  \"analysis_options\": {\n    \"focus\": \"All\",\n    \"security\": true,\n    \"include_external\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/chaos/generate",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "chaos", "generate"]
+        }
+      }
+    },
+    {
+      "name": "Generate Chaos Plan (Streaming)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"index_name\": \"your-index-name\",\n  \"opensearch_config\": {\n    \"endpoint\": \"{{opensearchEndpoint}}\",\n    \"username\": \"{{opensearchUsername}}\",\n    \"password\": \"{{opensearchPassword}}\"\n  },\n  \"aws_config\": {\n    \"model\": \"global.anthropic.claude-sonnet-4-5-20250929-v1:0\",\n    \"region\": \"ap-south-1\"\n  },\n  \"analysis_options\": {\n    \"focus\": \"All\",\n    \"security\": true,\n    \"include_external\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/chaos/generate-stream",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "chaos", "generate-stream"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://chaos-engineering-api.onrender.com",
+      "type": "string"
+    },
+    {
+      "key": "opensearchEndpoint",
+      "value": "http://your-opensearch:9200",
+      "type": "string"
+    },
+    {
+      "key": "opensearchUsername",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "opensearchPassword",
+      "value": "password",
+      "type": "string"
+    }
+  ]
+}
